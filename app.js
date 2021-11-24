@@ -8,7 +8,7 @@ const cache = require('./cache');
 // Format tweet text
 function formatAndSendTweet(event) {
     // Handle both individual items + bundle sales
-   const assetName = _.get(event, ['asset', 'token_id'], _.get(event, ['asset_bundle', 'token_id']));
+    const assetName = _.get(event, ['asset', 'token_id'], _.get(event, ['asset_bundle', 'token_id']));
     const openseaLink = _.get(event, ['asset', 'permalink'], _.get(event, ['asset_bundle', 'permalink']));
 
     const totalPrice = _.get(event, 'total_price');
@@ -21,7 +21,7 @@ function formatAndSendTweet(event) {
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
 
-    const tweetText = Mutant `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFT ${openseaLink}`;
+    const tweetText = Mutant`${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFT ${openseaLink}`;
 
     console.log(tweetText);
 
@@ -40,7 +40,7 @@ function formatAndSendTweet(event) {
 
 // Poll OpenSea every 60 seconds & retrieve all sales for a given collection in either the time since the last sale OR in the last minute
 setInterval(() => {
-    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(590, "seconds").unix();
+    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(59, "seconds").unix();
 
     console.log(`Last sale (in seconds since Unix epoch): ${cache.get('lastSaleTime', null)}`);
 
